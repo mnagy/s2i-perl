@@ -10,13 +10,15 @@ cp -Rf /tmp/src/* ./
 
 # TODO
 MIRROR=
+DISABLE_TEST=--notest
 
 # Installing dependencies with cpanfile
 if [ -f "cpanfile" ]
 then
+	CPANM=`which cpanm`
 	echo "---> Installing modules from cpanfile"
-	perl cpanm $MIRROR --notest -l extlib Module::CoreList
-	perl -Iextlib/lib/perl5 cpanm $MIRROR --notest -L extlib --installdeps .
+	perl $CPANM $MIRROR $DISABLE_TEST -l extlib Module::CoreList
+	perl -Iextlib/lib/perl5 $CPANM $MIRROR $DISABLE_TEST -l extlib --installdeps .
 else
 	echo "---> No cpanfile found, exiting"
 	exit 1
